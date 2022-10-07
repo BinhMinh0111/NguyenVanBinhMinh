@@ -3,6 +3,7 @@ package com.example.nguyenvanbinhminh;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,34 +35,30 @@ public class LoginActivity extends AppCompatActivity {
         btnSignUp = findViewById(R.id.btnSignUp);
         tvMail = findViewById(R.id.tvMail);
 
-    btnSignIn.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
+    btnSignIn.setOnClickListener(view ->
             mAuth.signInWithEmailAndPassword("minh@gmail.com", "123456")
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            tvMail.setText(user.getEmail());
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
+            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    tvMail.setText(user.getEmail());
+                }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
 
-                        }
-                    });
-        }
-    });
+                }
+            }));
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mAuth.createUserWithEmailAndPassword("minh@gmail.com", "123456")
+                mAuth.createUserWithEmailAndPassword("vuon@gmail.com", "123456")
                          .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                               @Override
                               public void onComplete(@NonNull Task<AuthResult> task) {
-                                  Toast.makeText(LoginActivity.this, "OKEE", Toast.LENGTH_SHORT).show();
+                                  Toast.makeText(LoginActivity.this, "OKE", Toast.LENGTH_SHORT).show();
                         }
                     })
                         .addOnFailureListener(new OnFailureListener() {
@@ -70,6 +67,8 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
+                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+                startActivity(intent);
             }
         });
 
